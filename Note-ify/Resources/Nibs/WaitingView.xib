@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WaitingView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Box-Jd-XLU">
+                    <rect key="frame" x="250" y="250" width="100" height="100"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="5sL-C3-pxY"/>
+                        <constraint firstAttribute="height" constant="100" id="6Ln-Ld-BUC"/>
+                        <constraint firstAttribute="height" constant="100" id="jUF-0C-D1N"/>
+                        <constraint firstAttribute="width" constant="100" id="oju-L5-gUj"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="6Ln-Ld-BUC"/>
+                            <exclude reference="oju-L5-gUj"/>
+                        </mask>
+                    </variation>
+                </view>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="2Sc-cz-AGi">
+                    <rect key="frame" x="282" y="281" width="37" height="37"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="37" id="AEz-9l-457"/>
+                        <constraint firstAttribute="width" constant="37" id="g9G-f3-9L9"/>
+                    </constraints>
+                </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIZ-RP-4Sl">
+                    <rect key="frame" x="25" y="358" width="550" height="26"/>
+                    <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="0.28000000000000003" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="JIZ-RP-4Sl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="25" id="5bt-hD-v5B"/>
+                <constraint firstItem="Box-Jd-XLU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="250" id="6Ku-gC-3HI"/>
+                <constraint firstItem="JIZ-RP-4Sl" firstAttribute="top" secondItem="Box-Jd-XLU" secondAttribute="bottom" constant="8" id="A6D-hV-5eg"/>
+                <constraint firstAttribute="centerX" secondItem="2Sc-cz-AGi" secondAttribute="centerX" id="Hcy-hP-9F6"/>
+                <constraint firstItem="JIZ-RP-4Sl" firstAttribute="top" secondItem="Box-Jd-XLU" secondAttribute="bottom" constant="8" id="O7a-Vw-bd3"/>
+                <constraint firstAttribute="centerY" secondItem="Box-Jd-XLU" secondAttribute="centerY" id="PPN-J6-X3o"/>
+                <constraint firstAttribute="centerX" secondItem="Box-Jd-XLU" secondAttribute="centerX" id="brA-NC-byg"/>
+                <constraint firstAttribute="centerY" secondItem="Box-Jd-XLU" secondAttribute="centerY" id="cJx-60-3va"/>
+                <constraint firstAttribute="centerX" secondItem="JIZ-RP-4Sl" secondAttribute="centerX" id="cgw-33-iL6"/>
+                <constraint firstItem="Box-Jd-XLU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="250" id="hlt-fC-hpG"/>
+                <constraint firstAttribute="centerX" secondItem="Box-Jd-XLU" secondAttribute="centerX" id="loH-US-vio"/>
+                <constraint firstAttribute="centerX" secondItem="2Sc-cz-AGi" secondAttribute="centerX" id="nh0-ha-TH6"/>
+                <constraint firstAttribute="centerY" secondItem="2Sc-cz-AGi" secondAttribute="centerY" id="pHk-kq-pCi"/>
+                <constraint firstAttribute="centerY" secondItem="2Sc-cz-AGi" secondAttribute="centerY" id="w8x-60-mhq"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="6Ku-gC-3HI"/>
+                    <exclude reference="cJx-60-3va"/>
+                    <exclude reference="hlt-fC-hpG"/>
+                    <exclude reference="loH-US-vio"/>
+                    <exclude reference="O7a-Vw-bd3"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="activityIndicator" destination="2Sc-cz-AGi" id="sNe-mt-25T"/>
+                <outlet property="activityIndicatorView" destination="Box-Jd-XLU" id="Y2e-oc-Ozy"/>
+                <outlet property="loadingTxt" destination="JIZ-RP-4Sl" id="21i-oa-S5G"/>
+            </connections>
+        </view>
+    </objects>
+</document>

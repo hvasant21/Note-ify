@@ -28,9 +28,6 @@
 		72E331E51B7F0D4D00B40B77 /* FileUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E331D51B7F0D4D00B40B77 /* FileUtil.m */; };
 		72E331E61B7F0D4D00B40B77 /* NotesEditUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E331D71B7F0D4D00B40B77 /* NotesEditUtil.m */; };
 		72E331EB1B7F0DBD00B40B77 /* MagicalRecord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E331EA1B7F0DBD00B40B77 /* MagicalRecord.framework */; };
-		72E331ED1B7F0DC600B40B77 /* Expecta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E331EC1B7F0DC600B40B77 /* Expecta.framework */; };
-		72E331EE1B7F0DCD00B40B77 /* Expecta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E331EC1B7F0DC600B40B77 /* Expecta.framework */; };
-		72E331EF1B7F0DCD00B40B77 /* Expecta.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 72E331EC1B7F0DC600B40B77 /* Expecta.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		72E331F01B7F0DCD00B40B77 /* MagicalRecord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E331EA1B7F0DBD00B40B77 /* MagicalRecord.framework */; };
 		72E331F11B7F0DCD00B40B77 /* MagicalRecord.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 72E331EA1B7F0DBD00B40B77 /* MagicalRecord.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		72E331F41B7F0E0000B40B77 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E331F31B7F0E0000B40B77 /* DropboxSDK.framework */; };
@@ -59,7 +56,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				72E331F11B7F0DCD00B40B77 /* MagicalRecord.framework in Embed Frameworks */,
-				72E331EF1B7F0DCD00B40B77 /* Expecta.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,7 +100,6 @@
 		72E331D61B7F0D4D00B40B77 /* NotesEditUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesEditUtil.h; sourceTree = "<group>"; };
 		72E331D71B7F0D4D00B40B77 /* NotesEditUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesEditUtil.m; sourceTree = "<group>"; };
 		72E331EA1B7F0DBD00B40B77 /* MagicalRecord.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MagicalRecord.framework; path = Carthage/Build/iOS/MagicalRecord.framework; sourceTree = "<group>"; };
-		72E331EC1B7F0DC600B40B77 /* Expecta.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Expecta.framework; path = Carthage/Build/iOS/Expecta.framework; sourceTree = "<group>"; };
 		72E331F31B7F0E0000B40B77 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = "Note-ify/Frameworks/DropboxSDK.framework"; sourceTree = "<group>"; };
 		72E331F61B7F0F1500B40B77 /* SingletonClass.Template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingletonClass.Template.h; sourceTree = "<group>"; };
 		72E331F71B7F101900B40B77 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -124,10 +119,8 @@
 			files = (
 				72E331F81B7F101900B40B77 /* CoreData.framework in Frameworks */,
 				72E331F01B7F0DCD00B40B77 /* MagicalRecord.framework in Frameworks */,
-				72E331EE1B7F0DCD00B40B77 /* Expecta.framework in Frameworks */,
 				72E331EB1B7F0DBD00B40B77 /* MagicalRecord.framework in Frameworks */,
 				72E331F41B7F0E0000B40B77 /* DropboxSDK.framework in Frameworks */,
-				72E331ED1B7F0DC600B40B77 /* Expecta.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,7 +139,6 @@
 			children = (
 				72E331F71B7F101900B40B77 /* CoreData.framework */,
 				72E331F31B7F0E0000B40B77 /* DropboxSDK.framework */,
-				72E331EC1B7F0DC600B40B77 /* Expecta.framework */,
 				72E331EA1B7F0DBD00B40B77 /* MagicalRecord.framework */,
 				72E331851B7F0BCC00B40B77 /* Note-ify */,
 				72E331A21B7F0BCC00B40B77 /* Note-ifyTests */,
@@ -690,6 +682,7 @@
 				72E331AB1B7F0BCC00B40B77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		72E331AC1B7F0BCC00B40B77 /* Build configuration list for PBXNativeTarget "Note-ifyTests" */ = {
 			isa = XCConfigurationList;
@@ -698,6 +691,7 @@
 				72E331AE1B7F0BCC00B40B77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

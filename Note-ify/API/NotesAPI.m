@@ -64,6 +64,7 @@
 }
 
 
+
 /*
  Delete file object
  In params:  fileObject -> file to be deleted
@@ -174,6 +175,11 @@
     }
 }
 
+- (void)refreshSession
+{
+    [_dbManager refreshSession];
+    
+}
 
 #pragma mark - DBManagerDelegate methods
 

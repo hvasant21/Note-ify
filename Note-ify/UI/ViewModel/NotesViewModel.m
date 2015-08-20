@@ -68,12 +68,14 @@
 - (void)doLogin:(id)sender
 {
     [[DBSession sharedSession] linkFromController:sender];
+    
 }
 
 //Check if user is logged in
 - (BOOL)isLoggedIn
 {
-    return [[DBSession sharedSession] isLinked];
+   
+    return [[DropBoxSessionManager sharedManager] isLoggedIn];
 }
 
 //Logout of application.Unlink session manager
@@ -82,6 +84,11 @@
     [[DropBoxSessionManager sharedManager] doLogout];
 }
 
+- (void)refreshSession
+{
+    [_notesApi refreshSession];
+    [[DropBoxSessionManager sharedManager] setCurrentUser];
+}
 
 #pragma mark - Sync
 

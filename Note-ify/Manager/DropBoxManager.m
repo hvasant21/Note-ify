@@ -14,6 +14,7 @@
 @interface DropBoxManager ()<DBRestClientDelegate>
 
 @property (nonatomic, strong) DBRestClient *restClient;
+
 @end
 @implementation DropBoxManager
 
@@ -49,6 +50,13 @@
 - (void)deleteFileFromPath:(NSString*)path
 {
     [self.restClient deletePath:path];
+}
+
+- (void)refreshSession
+{
+    self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+    self.restClient.delegate = self;
+
 }
 
 #pragma mark - DBRestClientDelegate methods

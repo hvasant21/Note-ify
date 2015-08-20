@@ -41,11 +41,12 @@ static NSString * const reuseIdentifier = @"NotesViewCell";
     
     self.title = @"Notes";
     _noResultsFoundLbl.text = @"No Results found.";
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSession) name:userLoggedIn object:nil];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFilesList) name:@"REFRESH_NOTES" object:nil];
     if(![_notesViewModel isLoggedIn])
     {
         [_notesViewModel doLogin:self];
@@ -53,9 +54,10 @@ static NSString * const reuseIdentifier = @"NotesViewCell";
   
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:refreshNotes object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:userLoggedIn object:nil];
 }
 
 - (void)addNavBarControls
@@ -70,6 +72,12 @@ static NSString * const reuseIdentifier = @"NotesViewCell";
     
     self.navigationItem.rightBarButtonItems =  [[NSArray alloc] initWithObjects:addBtn,syncBtn, nil];
     self.navigationItem.leftBarButtonItem =[[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(didPressLogout)];
+}
+
+- (void)refreshSession
+{
+    [_notesViewModel refreshSession];
+    [self refreshFilesList];
 }
 
 - (void)refreshFilesList

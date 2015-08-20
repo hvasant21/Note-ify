@@ -2,7 +2,7 @@
 //  FilesEntity.h
 //  Note-ify
 //
-//  Created by Harini Vasanthakumar on 15/08/15.
+//  Created by Harini Vasanthakumar on 19/08/15.
 //  Copyright (c) 2015 Sample. All rights reserved.
 //
 
@@ -17,5 +17,6 @@
 @property (nonatomic, retain) NSString * remotePath;
 @property (nonatomic) int32_t syncStatus;
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * userID;
 
 @end

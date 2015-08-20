@@ -25,4 +25,5 @@
 - (void)deleteFileWithObject:(FileObject*)fileObject;
 - (FileObject*)createNewFileEntityWithContent:(NSString*)content;
 - (NSArray*)getAllExistingFiles;
+- (void)refreshSession;
 @end

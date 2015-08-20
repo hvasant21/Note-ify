@@ -10,11 +10,14 @@
 #import <Foundation/Foundation.h>
 #import "SingletonClass.Template.h"
 
-static NSString * const refreshNotes = @"REFRESH_NOTES";
+static NSString * const userLoggedIn = @"USER_LOGGED_IN";
 
 @interface DropBoxSessionManager : NSObject
 declareSingleton(DropBoxSessionManager);
 
+@property(nonatomic,readonly,strong) NSString* currentUserId;
 - (BOOL)checkOpenURL:(NSURL *)url;
 - (void) doLogout;
+- (BOOL)isLoggedIn;
+- (void)setCurrentUser;
 @end

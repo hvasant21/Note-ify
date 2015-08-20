@@ -30,10 +30,11 @@ defineSingleton(DropBoxSessionManager)
     NSString *root = kDBRootAppFolder;
     
     
-    DBSession* session =
-    [[DBSession alloc] initWithAppKey:appKey appSecret:appSecret root:root];
-    session.delegate = self; // DBSessionDelegate methods allow you to handle re-authenticating
-    [DBSession setSharedSession:session];
+        DBSession* session = [[DBSession alloc] initWithAppKey:appKey appSecret:appSecret root:root];
+        session.delegate = self; // DBSessionDelegate methods allow you to handle re-authenticating
+        [DBRequest setNetworkRequestDelegate:self];
+        [DBSession setSharedSession:session];
+        [self setCurrentUser];
     }
     return self;
 }
@@ -42,7 +43,7 @@ defineSingleton(DropBoxSessionManager)
 {
     if ([[DBSession sharedSession] handleOpenURL:url]) {
         if ([[DBSession sharedSession] isLinked]) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:refreshNotes object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:userLoggedIn object:nil];
         } else {
             // Login was canceled/failed.
         }
@@ -51,8 +52,32 @@ defineSingleton(DropBoxSessionManager)
     return NO;
 }
 
+- (BOOL)isLoggedIn
+{
+    BOOL isLinked = [[DBSession sharedSession] isLinked];
+    return isLinked;
+}
+
+- (void)setCurrentUser
+{
+    if([[DBSession sharedSession] isLinked])
+    {
+        _currentUserId = [[DBSession sharedSession].userIds objectAtIndex:0];
+    }
+    else
+    {
+        _currentUserId = nil;
+    }
+}
+
+- (void) doLogout
+{
+    [[DBSession sharedSession] unlinkAll];
+}
+
 #pragma mark -
 #pragma mark DBSessionDelegate methods
+
 
 - (void)sessionDidReceiveAuthorizationFailure:(DBSession*)session userId:(NSString *)userId {
 
@@ -65,10 +90,6 @@ defineSingleton(DropBoxSessionManager)
 }
 
 
-- (void) doLogout
-{
-    [[DBSession sharedSession] unlinkAll];
-}
 
 #pragma mark -
 #pragma mark UIAlertViewDelegate methods

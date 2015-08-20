@@ -27,4 +27,5 @@
 - (void)fetchFilesFromServer;
 - (void)uploadFileWithName:(NSString*)fileName withParentRev:(NSString*)revision withLocalPath:(NSString*)localPath;
 - (void)deleteFileFromPath:(NSString*)path;
+- (void)refreshSession;
 @end

@@ -10,6 +10,7 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import "FileObject.h"
 #import "FileUtil.h"
+#import "DropBoxSessionManager.h"
 
 @implementation FilesEntity (Helper)
 
@@ -38,10 +39,11 @@
 
 + (NSArray*)getAllExistingFiles
 {
+    NSString* userID = [[DropBoxSessionManager sharedManager] currentUserId];
     
     NSMutableArray* filesObjectArray = [[NSMutableArray alloc] init];
     
-    NSArray* fileArray =[FilesEntity MR_findAllWithPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat: @"syncStatus != '%d'",(int)SyncStatusDeleted]]];
+    NSArray* fileArray =[FilesEntity MR_findAllWithPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat: @"syncStatus != '%d' AND userID = '%@'",(int)SyncStatusDeleted,userID]]];
     
     for(FilesEntity *fileEntity in fileArray)
     {
@@ -78,6 +80,7 @@
         fileEntity.syncStatus = fileObject.syncStatus;
         fileEntity.title = fileObject.title;
     
+        fileEntity.userID = [[DropBoxSessionManager sharedManager] currentUserId];
         
         if (![fileObject.remotePath isKindOfClass:[NSNull class]] && fileObject.remotePath.length > 0) {
             fileEntity.remotePath = fileObject.remotePath;
@@ -111,7 +114,7 @@
     do {
         fileEntity = [FilesEntity getFileEntityWithName:fileObject.name];
         if (fileEntity) {
-           [fileEntity MR_deleteEntityInContext:[NSManagedObjectContext MR_contextForCurrentThread]];
+        [fileEntity MR_deleteEntityInContext:[NSManagedObjectContext MR_contextForCurrentThread]];
         }
     }while(NO);
     [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreAndWait];
@@ -122,7 +125,8 @@
 
 + (FilesEntity*)getFileEntityWithName:(NSString*)fileName
 {
-    FilesEntity* fileEntity =[FilesEntity MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat: @" name = '%@'",fileName]]];
+    NSString* userID = [[DropBoxSessionManager sharedManager] currentUserId];
+    FilesEntity* fileEntity =[FilesEntity MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat: @" name = '%@' AND userID = '%@'",fileName,userID]]];
     return fileEntity;
 }
 

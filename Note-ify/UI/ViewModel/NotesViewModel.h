@@ -26,6 +26,6 @@
 - (BOOL)isLoggedIn;
 - (void)doLogout;
 - (void)doLogin:(id)sender;
-
+- (void)refreshSession;
 
 @end

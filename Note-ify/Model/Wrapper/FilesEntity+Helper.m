@@ -19,10 +19,11 @@
 //Get all files entity which is to be synced to server
 + (NSArray*)getAllFilesToBeSynced
 {
+    NSString* userID = [[DropBoxSessionManager sharedManager] currentUserId];
     NSMutableArray* filesObjectArray = [[NSMutableArray alloc] init];
     
     int syncStatusSynced = (int)SyncStatusSynced;
-    NSArray* fileArray =[FilesEntity MR_findAllWithPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat: @"syncStatus != %d",syncStatusSynced]]];
+    NSArray* fileArray =[FilesEntity MR_findAllWithPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat: @"syncStatus != %d  AND userID = '%@'",syncStatusSynced,userID]]];
     
     for(FilesEntity *fileEntity in fileArray)
     {

@@ -62,34 +62,35 @@
 + (BOOL)addOrUpdateFileObject:(FileObject*)fileObject
 {
     
-    FilesEntity* fileEntity = nil;
-   
-    do {
-        fileEntity = [FilesEntity getFileEntityWithName:fileObject.name];
-        if(!fileEntity)
-        {
-            fileEntity = [FilesEntity MR_createEntity];
-        }
-        if (![fileObject.name isKindOfClass:[NSNull class]] && fileObject.name.length > 0) {
-            fileEntity.name = fileObject.name;
-        }
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        FilesEntity* fileEntity = nil;
         
-        if (![fileObject.fileRevision isKindOfClass:[NSNull class]] && fileObject.fileRevision.length > 0) {
-            fileEntity.fileRevision = fileObject.fileRevision;
-        }
-     
-        fileEntity.syncStatus = fileObject.syncStatus;
-        fileEntity.title = fileObject.title;
+        do {
+            fileEntity = [FilesEntity getFileEntityWithName:fileObject.name inContext:localContext];
+            if(!fileEntity)
+            {
+                fileEntity = [FilesEntity MR_createEntityInContext:localContext];
+            }
+            if (![fileObject.name isKindOfClass:[NSNull class]] && fileObject.name.length > 0) {
+                fileEntity.name = fileObject.name;
+            }
+            
+            if (![fileObject.fileRevision isKindOfClass:[NSNull class]] && fileObject.fileRevision.length > 0) {
+                fileEntity.fileRevision = fileObject.fileRevision;
+            }
+            
+            fileEntity.syncStatus = fileObject.syncStatus;
+            fileEntity.title = fileObject.title;
+            
+            fileEntity.userID = [[DropBoxSessionManager sharedManager] currentUserId];
+            
+            if (![fileObject.remotePath isKindOfClass:[NSNull class]] && fileObject.remotePath.length > 0) {
+                fileEntity.remotePath = fileObject.remotePath;
+            }
+            
+        }while(NO);
+    }];
     
-        fileEntity.userID = [[DropBoxSessionManager sharedManager] currentUserId];
-        
-        if (![fileObject.remotePath isKindOfClass:[NSNull class]] && fileObject.remotePath.length > 0) {
-            fileEntity.remotePath = fileObject.remotePath;
-        }
-        
-    }while(NO);
-    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreAndWait];
-
     return YES;
 }
 
@@ -97,7 +98,7 @@
 + (FileObject*)getFileObjectWithName:(NSString*)fileName
 {
     FileObject* fileObj = nil;
-    FilesEntity* fileEntity = [self getFileEntityWithName:fileName];
+    FilesEntity* fileEntity = [self getFileEntityWithName:fileName inContext:[NSManagedObjectContext MR_defaultContext]];
     if(fileEntity)
     {
         fileObj = [self convertEntityToObject:fileEntity];
@@ -109,25 +110,24 @@
 //Delete a file object from DB
 + (void)deleteFileObject:(FileObject*)fileObject
 {
-    
-    FilesEntity* fileEntity = nil;
-    
-    do {
-        fileEntity = [FilesEntity getFileEntityWithName:fileObject.name];
-        if (fileEntity) {
-        [fileEntity MR_deleteEntityInContext:[NSManagedObjectContext MR_contextForCurrentThread]];
-        }
-    }while(NO);
-    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreAndWait];
-
+    [MagicalRecord saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
+        FilesEntity* fileEntity = nil;
+        
+        do {
+            fileEntity = [FilesEntity getFileEntityWithName:fileObject.name inContext:localContext];
+            if (fileEntity) {
+                [fileEntity MR_deleteEntityInContext:localContext];
+            }
+        }while(NO);
+    }];
 }
 
 #pragma - mark Private Methods
 
-+ (FilesEntity*)getFileEntityWithName:(NSString*)fileName
++ (FilesEntity*)getFileEntityWithName:(NSString*)fileName inContext:(NSManagedObjectContext*)context
 {
     NSString* userID = [[DropBoxSessionManager sharedManager] currentUserId];
-    FilesEntity* fileEntity =[FilesEntity MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat: @" name = '%@' AND userID = '%@'",fileName,userID]]];
+    FilesEntity* fileEntity =[FilesEntity MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:[NSString stringWithFormat: @" name = '%@' AND userID = '%@'",fileName,userID]] inContext:context];
     return fileEntity;
 }
 
